@@ -69,7 +69,7 @@ body {
         0 3px 12px rgba(205, 214, 82, 0.856);
 
     /* BORDE DORADO */
-    border-bottom: 2px solid var(--dorado);
+    border-bottom: 1px solid var(--dorado);
 
     position: relative;
 
@@ -85,65 +85,40 @@ body {
 
 
 /* ==================================================
-   BOTÓN HAMBURGUESA + ESCUDO
+   MENU HAMBURGUESA
 ================================================== */
 
 .boton-menu-hamburguesa {
-    width: 40px;
-    height: 40px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    padding: 0;
-    margin: 0 12px 0 0;
-
-    border: 0.5 solid;
-    outline: none !important;
-
-    background: var(--azul-principal) !important;
-    border-color: #8d7117;
-    border-radius: 8px;
-    cursor: pointer;
+    color: #ffffff !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 4px 8px !important;
 }
 
-
-/* ==================================================
-   TRES LÍNEAS DEL MENÚ HAMBURGUESA
-================================================== */
-
-.boton-menu-hamburguesa span {
-    display: block;
-
-    width: 30px;
-    height: 30px;
-
-    margin: 5px 0;
-
-    background-color: var(--dorado);
-
-    border-radius: 8px;
-
-    transition: 0.2s;
+.boton-menu-hamburguesa .bi-list {
+    color: #ffffff !important;
+    font-size: 42px !important;
+    -webkit-text-stroke: 1.5px #ffffff;
+    line-height: 1 !important;
 }
 
-
-/* Estados del botón */
-
+/* Estados */
 .boton-menu-hamburguesa:hover,
 .boton-menu-hamburguesa:focus,
 .boton-menu-hamburguesa:active {
+    color: #ffffff !important;
     background: transparent !important;
-
-    color: var(--dorado);
-
     border: none !important;
-    outline: none !important;
-
     box-shadow: none !important;
+    outline: none !important;
 }
 
+.boton-menu-hamburguesa:hover .bi-list,
+.boton-menu-hamburguesa:focus .bi-list,
+.boton-menu-hamburguesa:active .bi-list {
+    color: #ffffff !important;
+}
 
 /* Escudo */
 
@@ -159,7 +134,6 @@ body {
 
     margin: 0;
 }
-
 
 /* ==================================================
    TÍTULO
@@ -1360,4 +1334,5 @@ body {
     }
 
 }
+
 }

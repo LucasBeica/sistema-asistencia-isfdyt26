@@ -1,0 +1,45 @@
+{% extends 'asistencia/base.html' %}
+
+{% block contenido %}
+
+<div class="card shadow">
+
+    <div class="card-header bg-danger text-white">
+
+        <h3>Eliminar Carrera</h3>
+
+    </div>
+
+    <div class="card-body">
+
+        <p>
+
+            ¿Está seguro que desea eliminar el alumno
+
+            <strong>{{ carrera.nombre }}</strong>?
+
+        </p>
+
+        <form method="post">
+
+            {% csrf_token %}
+
+            <button class="btn btn-danger">
+
+                Sí, eliminar
+
+            </button>
+
+            <a href="{% url 'lista_alumnos' %}" class="btn btn-secondary">
+
+                Cancelar
+
+            </a>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}
