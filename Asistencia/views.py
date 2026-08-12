@@ -520,6 +520,8 @@ def eliminar_materia(request, id):
 
 def lista_alumnos(request):
 
+    buscar = request.GET.get('buscar', '').strip()
+
     alumnos = Alumno.objects.all().select_related(
         'carrera',
     ).order_by(
@@ -527,14 +529,26 @@ def lista_alumnos(request):
         'nombre'
     )
 
+    # ==================================================
+    # BUSCADOR
+    # ==================================================
+
+    if buscar:
+
+        alumnos = alumnos.filter(
+            Q(nombre__icontains=buscar) |
+            Q(apellido__icontains=buscar) |
+            Q(dni__icontains=buscar)
+        )
+
     return render(
         request,
         'asistencia/alumno/lista.html',
         {
-            'alumnos': alumnos
+            'alumnos': alumnos,
+            'buscar': buscar,
         }
     )
-
 
 def nuevo_alumno(request):
 

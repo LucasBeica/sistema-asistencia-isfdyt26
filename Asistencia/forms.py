@@ -140,11 +140,15 @@ class AlumnoForm(forms.ModelForm):
 
             'dni': forms.TextInput(
                 attrs={
-                    'class': 'form-control',
+                        'class': 'form-control',
                     'placeholder': 'DNI',
-                    'maxlength': '8'
-                }
-            ),
+                    'maxlength': '8',
+                    'minlength': '8',
+                    'inputmode': 'numeric',
+                    'pattern': '[0-9]{8}',
+                    'required': True
+                    }
+                ),
 
             'carrera': forms.Select(
                 attrs={
@@ -152,4 +156,24 @@ class AlumnoForm(forms.ModelForm):
                 }
             ),
         }
+    def clean_dni(self):
+
+        dni = self.cleaned_data.get('dni', '').strip()
+
+        if not dni:
+            raise forms.ValidationError(
+                'El DNI es obligatorio.'
+            )
+
+        if not dni.isdigit():
+            raise forms.ValidationError(
+                'El DNI debe contener solamente números.'
+            )
+
+        if len(dni) != 8:
+            raise forms.ValidationError(
+                'El DNI debe tener exactamente 8 números.'
+            )
+
+        return dni
 
