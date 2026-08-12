@@ -1,0 +1,33 @@
+{% extends 'asistencia/base.html' %}
+
+{% block contenido %}
+
+<div class="card shadow">
+
+    <div class="card-header">
+        <h3>Carrera</h3>
+    </div>
+
+    <div class="card-body">
+
+        <form method="post">
+
+            {% csrf_token %}
+
+            {{ formulario.as_p }}
+
+            <button class="btn btn-primary">
+                Guardar
+            </button>
+
+            <a href="{% url 'lista_carreras' %}" class="btn btn-secondary">
+                Cancelar
+            </a>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

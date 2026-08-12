@@ -1,0 +1,1355 @@
+:root {
+    --azul-principal: #123b63;
+    --azul-secundario: #1d5b8f;
+    --azul-claro: #eaf3fa;
+
+    --fondo: #bad5f0;
+    --blanco: #ffffff;
+
+    --texto: #263746;
+    --texto-suave: #687887;
+
+    --borde: #cbdeec;
+
+    /* DORADO INSTITUCIONAL */
+    --dorado: #c9a227;
+
+    --sombra-suave: 0 5px 20px rgba(0, 0, 0, 0.06);
+    --sombra-menu: 2px 0 12px rgba(0, 0, 0, 0.04);
+}
+/* ==================================================
+   CONFIGURACIÓN GENERAL
+================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+
+    background-color: var(--fondo);
+    color: var(--texto);
+
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: -0.2px;
+
+    min-height: 100vh;
+}
+
+
+/* ==================================================
+   BARRA SUPERIOR
+================================================== */
+
+.barra-superior {
+    height: 65px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--azul-principal),
+            var(--azul-secundario)
+        );
+
+    display: flex;
+    align-items: center;
+
+    padding: 6px 20px;
+
+    color: white;
+
+    box-shadow:
+        0 3px 12px rgba(205, 214, 82, 0.856);
+
+    /* BORDE DORADO */
+    border-bottom: 2px solid var(--dorado);
+
+    position: relative;
+
+    z-index: 1000;
+}
+
+.encabezado-institucional {
+    display: flex;
+    align-items: center;
+
+    min-width: 0;
+}
+
+
+/* ==================================================
+   BOTÓN HAMBURGUESA + ESCUDO
+================================================== */
+
+.boton-menu-hamburguesa {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    padding: 0;
+    margin: 0 12px 0 0;
+
+    border: 0.5 solid;
+    outline: none !important;
+
+    background: var(--azul-principal) !important;
+    border-color: #8d7117;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+
+/* ==================================================
+   TRES LÍNEAS DEL MENÚ HAMBURGUESA
+================================================== */
+
+.boton-menu-hamburguesa span {
+    display: block;
+
+    width: 30px;
+    height: 30px;
+
+    margin: 5px 0;
+
+    background-color: var(--dorado);
+
+    border-radius: 8px;
+
+    transition: 0.2s;
+}
+
+
+/* Estados del botón */
+
+.boton-menu-hamburguesa:hover,
+.boton-menu-hamburguesa:focus,
+.boton-menu-hamburguesa:active {
+    background: transparent !important;
+
+    color: var(--dorado);
+
+    border: none !important;
+    outline: none !important;
+
+    box-shadow: none !important;
+}
+
+
+/* Escudo */
+
+.encabezado-institucional .logo-escudo {
+    width: 48px;
+    height: 48px;
+
+    object-fit: contain;
+
+    display: block;
+
+    flex-shrink: 0;
+
+    margin: 0;
+}
+
+
+/* ==================================================
+   TÍTULO
+================================================== */
+
+.datos-institucion {
+    min-width: 100px;
+}
+
+.titulo-sistema {
+    margin: 0;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.subtitulo-sistema {
+    margin: 4px 6px 6px;
+    font-size: 13px;
+    opacity: 0.85;
+}
+
+/* ==================================================
+   ESTRUCTURA PRINCIPAL
+================================================== */
+
+.contenedor-principal {
+    display: flex;
+    min-height: calc(90vh - 78px);
+    flex: 1;
+}
+
+/* ==================================================
+   NAVEGACIÓN
+================================================== */
+
+.menu-navegacion {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+
+.enlace-menu {
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 16px 18px;
+
+    border-radius: 14px;
+
+    text-decoration: none;
+
+    color: #4b5b68;
+
+    font-size: 17px;
+    font-weight: 600;
+
+    background-color: #f8fafc;
+
+    /* BORDE DORADO */
+    border: 1px solid var(--dorado);
+
+    margin-bottom: 8px;
+
+    transition:
+        background-color 0.2s,
+        color 0.2s,
+        transform 0.2s,
+        box-shadow 0.2s;
+
+    cursor: pointer;
+}
+
+.enlace-menu i {
+    font-size: 18px;
+
+    width: 26px;
+    min-width: 26px;
+
+    text-align: center;
+}
+
+
+.enlace-menu:hover {
+    background-color: var(--azul-claro);
+
+    color: var(--azul-principal);
+
+    transform: translateX(3px);
+
+    box-shadow:
+        0 4px 10px rgba(18, 59, 99, 0.08);
+}
+
+
+.enlace-menu.activo {
+    background-color: var(--azul-principal);
+
+    color: white;
+
+    border-color: var(--dorado);
+
+    box-shadow:
+        0 4px 10px rgba(18, 59, 99, 0.25);
+}
+
+
+/* ==================================================
+   PIE DEL MENÚ
+================================================== */
+
+.menu-pie {
+    margin-top: auto;
+
+    padding: 15px 120px;
+
+    border-top:
+        1px solid var(--borde);
+
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    color: #7a8995;
+}
+
+.menu-pie > i {
+    font-size: 23px;
+
+    color: var(--azul-principal);
+}
+
+.menu-pie div {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 2px;
+}
+
+.menu-pie small {
+    font-size: 10px;
+}
+
+.menu-pie strong {
+    font-size: 12px;
+
+    color: var(--texto);
+}
+
+
+/* ==================================================
+   CONTENIDO PRINCIPAL
+================================================== */
+
+.contenido-principal {
+    flex: 1;
+
+    min-width: 0;
+
+    padding: 35px;
+
+    overflow-x: hidden;
+}
+
+
+/* ==================================================
+   TARJETA PANEL
+================================================== */
+
+.tarjeta-panel {
+    background-color: var(--blanco);
+
+    border-radius: 16px;
+
+    padding: 30px;
+
+    box-shadow: var(--sombra-suave);
+
+    /* BORDE DORADO */
+    border: 1px solid var(--dorado);
+}
+
+
+/* ==================================================
+   PANEL DE INICIO
+================================================== */
+
+.bienvenida {
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #edf4fa
+        );
+
+    /* BORDE DORADO */
+    border: 1px solid var(--dorado);
+
+    border-radius: 18px;
+
+    padding: 35px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    min-height: 220px;
+
+    box-shadow:
+        0 8px 25px rgba(18, 59, 99, 0.08);
+}
+
+
+.etiqueta-panel {
+    display: inline-block;
+
+    background-color: #dcecf8;
+
+    color: var(--azul-principal);
+
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+    padding: 6px 12px;
+
+    border-radius: 20px;
+
+    margin-bottom: 15px;
+}
+
+
+.bienvenida h1 {
+    font-size: 36px;
+
+    font-weight: 700;
+
+    color: var(--azul-principal);
+
+    margin:
+        0 0 5px;
+}
+
+
+.bienvenida h2 {
+    font-size: 21px;
+
+    font-weight: 500;
+
+    color: #526474;
+
+    margin:
+        0 0 15px;
+}
+
+
+.bienvenida p {
+    font-size: 16px;
+
+    color: #647482;
+
+    max-width: 600px;
+
+    margin: 0;
+}
+
+
+.bienvenida-icono {
+    width: 120px;
+    height: 120px;
+
+    min-width: 120px;
+
+    border-radius: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: var(--azul-principal);
+
+    color: white;
+
+    font-size: 55px;
+
+    margin-left: 30px;
+
+    box-shadow:
+        0 10px 25px rgba(18, 59, 99, 0.25);
+}
+
+
+/* ==================================================
+   TARJETAS DE ACCESO
+================================================== */
+
+.tarjeta-acceso {
+    min-height: 145px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 18px;
+
+    padding: 25px;
+
+    background-color: var(--blanco);
+
+    /* BORDE DORADO */
+    border: 1px solid var(--dorado);
+
+    border-radius: 16px;
+
+    text-decoration: none;
+
+    color: var(--texto);
+
+    box-shadow:
+        0 5px 18px rgba(0, 0, 0, 0.05);
+
+    transition:
+        transform 0.25s,
+        border-color 0.25s,
+        box-shadow 0.25s;
+}
+
+
+.tarjeta-acceso:hover {
+    color: var(--azul-principal);
+
+    transform: translateY(-5px);
+
+    border-color: var(--dorado);
+
+    box-shadow:
+        0 12px 25px rgba(18, 59, 99, 0.13);
+}
+
+
+.icono-tarjeta {
+    width: 55px;
+    height: 55px;
+
+    min-width: 55px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: var(--azul-claro);
+
+    color: var(--azul-principal);
+
+    border-radius: 14px;
+
+    font-size: 25px;
+}
+
+
+.tarjeta-acceso h3 {
+    font-size: 18px;
+
+    font-weight: 700;
+
+    margin:
+        0 0 5px;
+}
+
+
+.tarjeta-acceso p {
+    font-size: 14px;
+
+    color: #6b7a86;
+
+    margin: 0;
+}
+
+
+/* ==================================================
+   MENÚ MÓVIL
+================================================== */
+
+.offcanvas {
+    width: 285px !important;
+}
+
+
+.offcanvas-header {
+    background:
+        linear-gradient(
+            135deg,
+            var(--azul-principal),
+            var(--azul-secundario)
+        );
+
+    color: white;
+
+    padding: 18px;
+
+    border-bottom:
+        2px solid var(--dorado);
+}
+
+
+.menu-movil-titulo {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    min-width: 0;
+}
+
+
+.menu-movil-titulo img {
+    width: 48px;
+    height: 48px;
+
+    object-fit: contain;
+
+    flex-shrink: 0;
+}
+
+
+.menu-movil-titulo div {
+    display: flex;
+
+    flex-direction: column;
+
+    min-width: 0;
+}
+
+
+.menu-movil-titulo strong {
+    font-size: 14px;
+}
+
+
+.menu-movil-titulo small {
+    font-size: 11px;
+
+    opacity: 0.8;
+
+    margin-top: 2px;
+}
+
+
+.offcanvas-body {
+    padding: 20px 15px;
+
+    background-color: var(--blanco);
+}
+
+
+.offcanvas-body .enlace-menu {
+    margin-bottom: 10px;
+
+    border: 1.5px ridge rgba(201, 162, 39, 0.65);
+    border-radius: 14px;
+
+    background-color: #f8fafc;
+
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.20);
+
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s,
+        background-color 0.2s;
+}
+
+
+/* ==================================================
+   FOOTER
+================================================== */
+
+.footer-sistema {
+    min-height: 50px;
+
+    padding: 20px 25px;
+
+    background-color: white;
+
+    border-top:
+        1px solid var(--dorado);
+
+    color: #7a8995;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    font-size: 15px;
+
+    text-align: center;
+}
+
+
+.separador-footer {
+    color: #b5b7c8;
+}
+
+
+/* ==================================================
+   FORMULARIOS
+================================================== */
+
+.form-control,
+.form-select {
+    border-radius: 9px;
+
+    border-color: #d5dfe7;
+
+    min-height: 44px;
+}
+
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--azul-secundario);
+
+    box-shadow:
+        0 0 0 0.2rem rgba(29, 91, 143, 0.12);
+}
+
+
+/* ==================================================
+   BOTONES
+================================================== */
+
+.btn {
+    border-radius: 9px;
+
+    font-weight: 600;
+}
+
+
+.btn-primary {
+    background-color: var(--azul-principal);
+
+    border-color: var(--azul-principal);
+}
+
+
+.btn-primary:hover {
+    background-color: var(--azul-secundario);
+
+    border-color: var(--azul-secundario);
+}
+
+
+/* ==================================================
+   TABLAS
+================================================== */
+
+.table {
+    background-color: white;
+
+    vertical-align: middle;
+}
+
+
+.table thead th {
+    background-color: var(--azul-principal);
+
+    color: white;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+
+.table tbody td {
+    font-size: 14px;
+}
+
+
+.table-responsive {
+    border-radius: 12px;
+
+    overflow-x: auto;
+
+    box-shadow:
+        0 3px 12px rgba(0, 0, 0, 0.04);
+}
+
+
+/* ==================================================
+   RESPONSIVE - TABLET
+================================================== */
+
+@media (max-width: 992px) {
+
+    .menu-lateral {
+        width: 220px;
+
+        min-width: 220px;
+    }
+
+    .contenido-principal {
+        padding: 25px;
+    }
+
+    .bienvenida {
+        padding: 28px;
+    }
+
+    .bienvenida h1 {
+        font-size: 30px;
+    }
+}
+
+
+/* ==================================================
+   RESPONSIVE - CELULAR
+================================================== */
+
+@media (max-width: 768px) {
+
+    .barra-superior {
+        min-height: 68px;
+
+        padding:
+            9px 15px;
+    }
+
+
+    /* Escudo */
+
+    .boton-menu-hamburguesa i {
+    font-size: 20px;
+    color: var(--dorado);
+    }
+
+
+    .boton-menu-hamburguesa span {
+        width: 28px;
+
+        height: 3px;
+
+        margin: 4px 0;
+    }
+
+
+    .encabezado-institucional .logo-escudo {
+        width: 48px;
+        height: 48px;
+
+        margin-right: 8px;
+    }
+
+
+    .titulo-sistema {
+        font-size: 17px;
+    }
+
+
+    .subtitulo-sistema {
+        font-size: 11px;
+
+        margin-top: 2px;
+    }
+
+
+    /* Ocultar menú de escritorio */
+
+    .menu-lateral {
+        display: none;
+    }
+
+
+    /* Contenido */
+
+    .contenedor-principal {
+        display: block;
+
+        min-height:
+            calc(100vh - 68px);
+    }
+
+
+    .contenido-principal {
+        padding:
+            20px 15px;
+    }
+
+
+    /* Bienvenida */
+
+    .bienvenida {
+        padding: 25px;
+
+        min-height: auto;
+
+        align-items: flex-start;
+    }
+
+
+    .bienvenida h1 {
+        font-size: 27px;
+    }
+
+
+    .bienvenida h2 {
+        font-size: 17px;
+    }
+
+
+    .bienvenida p {
+        font-size: 14px;
+    }
+
+
+    .bienvenida-icono {
+        display: none;
+    }
+
+
+    /* Tarjetas */
+
+    .tarjeta-acceso {
+        min-height: 115px;
+
+        padding: 20px;
+
+        gap: 14px;
+    }
+
+
+    .icono-tarjeta {
+        width: 48px;
+        height: 48px;
+
+        min-width: 48px;
+
+        font-size: 21px;
+    }
+
+
+    .tarjeta-acceso h3 {
+        font-size: 16px;
+    }
+
+
+    .tarjeta-acceso p {
+        font-size: 13px;
+    }
+
+
+    /* Paneles */
+
+    .tarjeta-panel {
+        padding: 20px;
+
+        border-radius: 13px;
+    }
+
+
+    /* Footer */
+
+    .footer-sistema {
+        padding:
+            13px 15px;
+
+        flex-wrap: wrap;
+
+        font-size: 11px;
+    }
+}
+
+
+/* ==================================================
+   RESPONSIVE - CELULAR PEQUEÑO
+================================================== */
+
+@media (max-width: 480px) {
+
+    .titulo-sistema {
+        font-size: 15px;
+    }
+
+
+    .subtitulo-sistema {
+        font-size: 10px;
+    }
+
+
+    /* Escudo */
+
+    .boton-menu-hamburguesa i {
+        font-size: 20px;
+        color: var(--dorado);
+    }
+
+
+    .boton-menu-hamburguesa span {
+        width: 26px;
+
+        height: 3px;
+
+        margin: 4px 0;
+    }
+
+
+    .encabezado-institucional .logo-escudo {
+        width: 48px;
+        height: 48px;
+
+        margin-right: 8px;
+    }
+
+
+    .contenido-principal {
+        padding:
+            15px 12px;
+    }
+
+
+    .bienvenida {
+        padding: 20px;
+
+        border-radius: 14px;
+    }
+
+
+    .bienvenida h1 {
+        font-size: 24px;
+    }
+
+
+    .bienvenida h2 {
+        font-size: 16px;
+    }
+
+
+    .tarjeta-acceso {
+        padding: 17px;
+
+        min-height: 105px;
+    }
+
+
+    .footer-sistema {
+        flex-direction: column;
+
+        gap: 3px;
+    }
+
+
+    .separador-footer {
+        display: none;
+    }
+}
+/* ===================================================================================
+   LISTA DE ALUMNOS - ASISTENCIA
+   ============================================================================= */
+
+.lista-alumnos-asistencia {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    border-radius: 12px;
+    border: 1px solid var(--borde);
+    background-color: white;
+}
+
+.fila-alumno-asistencia {
+    width: 100%;
+    min-width: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 12px;
+
+    padding: 12px 15px;
+
+    border-bottom: 1px solid var(--borde);
+}
+
+.fila-alumno-asistencia:last-child {
+    border-bottom: none;
+}
+
+/* NOMBRE */
+
+.nombre-alumno-asistencia {
+    display: flex;
+    align-items: center;
+
+    min-width: 0;
+    flex: 1;
+
+    gap: 10px;
+}
+
+.icono-alumno-asistencia {
+    width: 38px;
+    height: 38px;
+
+    min-width: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background-color: var(--azul-claro);
+    color: var(--azul-principal);
+}
+
+.nombre-texto {
+    min-width: 0;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    font-weight: 600;
+}
+
+/* ESTADO */
+
+.estado-alumno-asistencia {
+    flex-shrink: 0;
+}
+
+.estado-select-asistencia {
+    width: 75px !important;
+    min-width: 75px !important;
+    height: 40px;
+
+    padding: 5px 8px;
+
+    text-align: center;
+    font-weight: 700;
+
+    border-radius: 9px;
+}
+@media (max-width: 767px) {
+
+    .fila-alumno-asistencia {
+        padding: 11px 10px;
+        gap: 8px;
+    }
+
+    .icono-alumno-asistencia {
+        width: 36px;
+        height: 36px;
+        min-width: 36px;
+    }
+
+    .nombre-texto {
+        font-size: 14px;
+    }
+
+    .estado-select-asistencia {
+        width: 65px !important;
+        min-width: 65px !important;
+        height: 38px;
+
+        padding: 4px 5px;
+
+        font-size: 14px;
+    }
+/* ==================================================
+/* ==================================================
+   BUSCADOR DE ALUMNOS
+   ================================================== */
+
+.tarjeta-buscador,
+.tarjeta-resultados,
+.tarjeta-alumno,
+.tarjeta-materia {
+    border: none;
+    border-radius: 16px;
+}
+
+.titulo-pagina {
+    color: var(--azul-principal);
+    font-weight: 700;
+}
+
+.texto-descripcion {
+    color: #6c757d;
+}
+
+.titulo-seccion {
+    color: var(--azul-principal);
+    font-weight: 700;
+}
+
+.tarjeta-buscador {
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.alumno-resultado {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    margin-bottom: 8px;
+
+    text-decoration: none;
+    color: var(--texto);
+
+    border: 1px solid #e1e6eb;
+    border-radius: 12px;
+
+    transition: 0.2s;
+}
+
+.alumno-resultado:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.alumno-icono,
+.icono-alumno-grande {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--azul-claro);
+    color: var(--azul-principal);
+
+    border-radius: 50%;
+}
+
+.alumno-icono {
+    width: 45px;
+    height: 45px;
+}
+
+.icono-alumno-grande {
+    width: 60px;
+    height: 60px;
+    font-size: 25px;
+}
+
+.alumno-datos {
+    display: flex;
+    flex-direction: column;
+}
+
+.alumno-datos span {
+    color: #6c757d;
+    font-size: 14px;
+}
+
+.alumno-flecha {
+    margin-left: auto;
+    color: var(--azul-principal);
+}
+
+.titulo-materia {
+    color: var(--azul-principal);
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.datos-materia {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    color: #59636c;
+    font-size: 14px;
+}
+
+.estadisticas-asistencia {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin: 20px 0;
+}
+
+.estadistica {
+    text-align: center;
+    padding: 10px 5px;
+    background: var(--azul-claro);
+    border-radius: 10px;
+}
+
+.estadistica strong {
+    display: block;
+    font-size: 20px;
+    color: var(--azul-principal);
+}
+
+.estadistica span {
+    font-size: 12px;
+    color: #59636c;
+}
+
+.barra-fondo {
+    width: 100%;
+    height: 10px;
+    background: #e5e7eb;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.barra-progreso {
+    height: 100%;
+    width: 0;
+    background: var(--azul-principal);
+    border-radius: 20px;
+}
+
+.tabla-asistencia {
+    margin-bottom: 0;
+}
+
+.tabla-asistencia th {
+    background: var(--azul-claro);
+    color: var(--azul-principal);
+}
+
+.estado {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.estado-presente {
+    background: #d1e7dd;
+    color: #0f5132;
+}
+
+.estado-ausente {
+    background: #f8d7da;
+    color: #842029;
+}
+
+.estado-tarde {
+    background: #fff3cd;
+    color: #664d03;
+}
+
+.estado-justificada {
+    background: #cfe2ff;
+    color: #084298;
+}
+
+
+/* ==================================================
+   RESPONSIVE
+   ================================================== */
+
+@media (max-width: 576px) {
+
+    .estadisticas-asistencia {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .tarjeta-materia {
+        border-radius: 12px;
+    }
+
+    .icono-alumno-grande {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+
+    .tarjeta-alumno h2 {
+        font-size: 20px;
+    }
+
+}
+}

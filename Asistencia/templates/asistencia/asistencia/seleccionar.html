@@ -1,0 +1,887 @@
+{% extends 'asistencia/base.html' %}
+
+{% block contenido %}
+
+<style>
+
+    /* ==========================================
+       CONTENEDOR PRINCIPAL
+       ========================================== */
+
+    .asistencia-container {
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+
+    .asistencia-card {
+        border: 0;
+        border-radius: 18px;
+        overflow: hidden;
+    }
+
+
+    /* ==========================================
+       ENCABEZADO
+       ========================================== */
+
+    .asistencia-header {
+        padding: 24px 24px 10px;
+    }
+
+    .asistencia-header h2 {
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+
+    /* ==========================================
+       FILTROS
+       ========================================== */
+
+    .filtros-card {
+        background: #f8f9fa;
+        border-radius: 14px;
+        padding: 20px;
+        margin-bottom: 25px;
+    }
+
+    .filtros-card .form-select {
+        min-height: 46px;
+        border-radius: 10px;
+    }
+
+
+    /* ==========================================
+       FECHA
+       ========================================== */
+
+    .fecha-card {
+        border-radius: 12px;
+        padding: 12px 18px;
+        text-align: center;
+        font-size: 1rem;
+    }
+
+
+    /* ==========================================
+       TITULO MATERIA
+       ========================================== */
+
+    .materia-titulo {
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
+
+
+    /* ==========================================
+       LISTA DE ALUMNOS
+       ========================================== */
+
+    .lista-alumnos-asistencia {
+        width: 100%;
+    }
+
+    .alumno-asistencia {
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        gap: 15px;
+
+        width: 100%;
+
+        min-width: 0;
+
+        padding: 14px 16px;
+
+        margin-bottom: 10px;
+
+        background: #ffffff;
+
+        border: 1px solid #dee2e6;
+
+        border-radius: 12px;
+
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+
+    }
+
+
+    /* ==========================================
+       NOMBRE DEL ALUMNO
+       ========================================== */
+
+    .alumno-info {
+
+        display: flex;
+
+        align-items: center;
+
+        min-width: 0;
+
+        flex: 1;
+
+    }
+
+    .alumno-nombre {
+
+        font-weight: 600;
+
+        font-size: 1rem;
+
+        overflow-wrap: anywhere;
+
+        word-break: break-word;
+
+    }
+
+
+    /* ==========================================
+       ESTADO
+       ========================================== */
+
+    .alumno-estado {
+
+        flex-shrink: 0;
+
+    }
+
+    .estado-select {
+
+        width: 135px;
+
+        min-width: 135px;
+
+        min-height: 42px;
+
+        border-radius: 9px;
+
+        font-weight: 600;
+
+        cursor: pointer;
+
+    }
+
+
+    /* ==========================================
+       TODOS PRESENTES
+       ========================================== */
+
+    .boton-todos {
+
+        border-radius: 10px;
+
+    }
+
+
+    /* ==========================================
+       GUARDAR
+       ========================================== */
+
+    .boton-guardar {
+
+        min-width: 220px;
+
+        border-radius: 12px;
+
+        font-weight: 600;
+
+    }
+
+
+    /* ==========================================
+       CELULAR
+       ========================================== */
+
+    @media (max-width: 767px) {
+
+        .asistencia-card {
+            border-radius: 12px;
+        }
+
+        .asistencia-header {
+            padding: 18px 15px 5px;
+        }
+
+        .asistencia-header h2 {
+            font-size: 1.5rem;
+        }
+
+        .asistencia-header p {
+            font-size: 0.9rem;
+        }
+
+        .filtros-card {
+            padding: 15px;
+        }
+
+        .filtros-card .mb-3,
+        .filtros-card .mb-4 {
+            margin-bottom: 14px !important;
+        }
+
+        .fecha-card {
+            font-size: 0.95rem;
+        }
+
+        .materia-titulo {
+            font-size: 1.25rem;
+        }
+
+
+        /* ALUMNO */
+
+        .alumno-asistencia {
+
+            padding: 11px 12px;
+
+            gap: 8px;
+
+            margin-bottom: 8px;
+
+        }
+
+        .alumno-nombre {
+
+            font-size: 0.92rem;
+
+        }
+
+
+        /* ESTADO */
+
+        .estado-select {
+
+            width: 105px;
+
+            min-width: 105px;
+
+            min-height: 40px;
+
+            padding-left: 7px;
+
+            padding-right: 4px;
+
+            font-size: 0.78rem;
+
+        }
+
+
+        /* TODOS PRESENTES */
+
+        .boton-todos-container {
+
+            width: 100%;
+
+        }
+
+        .boton-todos {
+
+            width: 100%;
+
+        }
+
+
+        /* GUARDAR */
+
+        .guardar-container {
+
+            position: sticky;
+
+            bottom: 10px;
+
+            z-index: 10;
+
+        }
+
+        .boton-guardar {
+
+            width: 100%;
+
+            min-width: 0;
+
+        }
+
+    }
+
+</style>
+
+
+<div class="asistencia-container">
+
+    <div class="card shadow-sm asistencia-card">
+
+
+        <!-- ==========================================
+             ENCABEZADO
+             ========================================== -->
+
+        <div class="asistencia-header">
+
+            <h2 class="text-center">
+
+                <i class="bi bi-calendar-check me-2"></i>
+
+                Tomar asistencia
+
+            </h2>
+
+            <p class="text-center text-muted mb-3">
+
+                Seleccioná el ciclo lectivo, la carrera,
+                el año y la materia.
+
+            </p>
+
+        </div>
+
+
+        <!-- ==========================================
+             CONTENIDO
+             ========================================== -->
+
+        <div class="px-3 px-md-4 pb-3">
+
+
+            <!-- ==========================================
+                 FILTROS
+                 ========================================== -->
+
+            <div class="filtros-card">
+
+                <form method="get" id="formAsistencia">
+
+                    <div class="row">
+
+
+                        <!-- CICLO -->
+
+                        <div class="col-12 col-md-6 mb-3">
+
+                            <label
+                                for="ciclo"
+                                class="form-label fw-semibold"
+                            >
+                                Ciclo lectivo
+                            </label>
+
+                            <select
+                                id="ciclo"
+                                name="ciclo"
+                                class="form-select"
+                            >
+
+                                <option value="">
+                                    Seleccionar ciclo
+                                </option>
+
+                                {% for ciclo in ciclos %}
+
+                                <option
+                                    value="{{ ciclo.id }}"
+                                    {% if ciclo_id|stringformat:"s" == ciclo.id|stringformat:"s" %}
+                                        selected
+                                    {% endif %}
+                                >
+
+                                    {{ ciclo.nombre }}
+
+                                </option>
+
+                                {% endfor %}
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- CARRERA -->
+
+                        <div class="col-12 col-md-6 mb-3">
+
+                            <label
+                                for="carrera"
+                                class="form-label fw-semibold"
+                            >
+                                Carrera
+                            </label>
+
+                            <select
+                                id="carrera"
+                                name="carrera"
+                                class="form-select"
+                            >
+
+                                <option value="">
+                                    Seleccionar carrera
+                                </option>
+
+                                {% for carrera in carreras %}
+
+                                <option
+                                    value="{{ carrera.id }}"
+                                    {% if carrera_id|stringformat:"s" == carrera.id|stringformat:"s" %}
+                                        selected
+                                    {% endif %}
+                                >
+
+                                    {{ carrera.nombre }}
+
+                                </option>
+
+                                {% endfor %}
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- AÑO -->
+
+                        <div class="col-12 col-md-6 mb-3">
+
+                            <label
+                                for="anio"
+                                class="form-label fw-semibold"
+                            >
+                                Año
+                            </label>
+
+                            <select
+                                id="anio"
+                                name="anio"
+                                class="form-select"
+                            >
+
+                                <option value="">
+                                    Seleccionar año
+                                </option>
+
+                                {% for anio in anios %}
+
+                                <option
+                                    value="{{ anio.id }}"
+                                    {% if anio_id|stringformat:"s" == anio.id|stringformat:"s" %}
+                                        selected
+                                    {% endif %}
+                                >
+
+                                    {{ anio.nombre }}
+
+                                </option>
+
+                                {% endfor %}
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- MATERIA -->
+
+                        <div class="col-12 col-md-6 mb-3">
+
+                            <label
+                                for="materia"
+                                class="form-label fw-semibold"
+                            >
+                                Materia
+                            </label>
+
+                            <select
+                                id="materia"
+                                name="materia"
+                                class="form-select"
+                            >
+
+                                <option value="">
+                                    Seleccionar materia
+                                </option>
+
+                                {% for materia in materias %}
+
+                                <option
+                                    value="{{ materia.id }}"
+                                    {% if materia_id|stringformat:"s" == materia.id|stringformat:"s" %}
+                                        selected
+                                    {% endif %}
+                                >
+
+                                    {{ materia.nombre }}
+
+                                </option>
+
+                                {% endfor %}
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+
+            <!-- ==========================================
+                 ASISTENCIA
+                 ========================================== -->
+
+            {% if materia_seleccionada %}
+
+            <div class="mt-4">
+
+
+                <!-- FECHA -->
+
+                <div class="fecha-card alert alert-info mb-4">
+
+                    <i class="bi bi-calendar-event me-1"></i>
+
+                    <strong>
+                        Fecha:
+                    </strong>
+
+                    {{ fecha|date:"d/m/Y" }}
+
+                </div>
+
+
+                <!-- FORMULARIO -->
+
+                <form method="post">
+
+                    {% csrf_token %}
+
+
+                    <!-- MANTENER FILTROS -->
+
+                    <input
+                        type="hidden"
+                        name="ciclo"
+                        value="{{ ciclo_id }}"
+                    >
+
+                    <input
+                        type="hidden"
+                        name="carrera"
+                        value="{{ carrera_id }}"
+                    >
+
+                    <input
+                        type="hidden"
+                        name="anio"
+                        value="{{ anio_id }}"
+                    >
+
+                    <input
+                        type="hidden"
+                        name="materia"
+                        value="{{ materia_id }}"
+                    >
+
+
+                    <!-- ==========================================
+                         TITULO MATERIA
+                         ========================================== -->
+
+                    <div class="d-flex flex-column flex-md-row
+                                justify-content-between
+                                align-items-md-center
+                                gap-3 mb-3">
+
+                        <div>
+
+                            <h3 class="materia-titulo mb-1">
+
+                                <i class="bi bi-book me-2"></i>
+
+                                {{ materia_seleccionada.nombre }}
+
+                            </h3>
+
+                            <small class="text-muted">
+
+                                Seleccioná el estado de cada alumno.
+
+                            </small>
+
+                        </div>
+
+
+                        <!-- TODOS PRESENTES -->
+
+                        {% if alumnos %}
+
+                        <div class="boton-todos-container">
+
+                            <button
+                                type="button"
+                                id="todosPresentes"
+                                class="btn btn-outline-success boton-todos"
+                            >
+
+                                <i class="bi bi-check-circle me-1"></i>
+
+                                Todos presentes
+
+                            </button>
+
+                        </div>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- ==========================================
+                         LISTA DE ALUMNOS
+                         ========================================== -->
+
+                    {% if alumnos %}
+
+                    <div class="lista-alumnos-asistencia">
+
+
+                        {% for inscripcion in alumnos %}
+
+                        <div class="alumno-asistencia">
+
+
+                            <!-- NOMBRE -->
+
+                            <div class="alumno-info">
+
+                                <div class="alumno-nombre">
+
+                                    <i class="bi bi-person-fill
+                                              text-primary
+                                              me-2">
+                                    </i>
+
+                                    {{ inscripcion.alumno.apellido }},
+                                    {{ inscripcion.alumno.nombre }}
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- ESTADO -->
+
+                            <div class="alumno-estado">
+
+                                <select
+                                    name="estado_{{ inscripcion.id }}"
+                                    class="form-select estado-select"
+                                >
+
+                                    <option
+                                        value="P"
+                                        {% if inscripcion.estado_actual == "P" %}
+                                            selected
+                                        {% endif %}
+                                    >
+                                        🟢 P
+                                    </option>
+
+
+                                    <option
+                                        value="A"
+                                        {% if inscripcion.estado_actual == "A" %}
+                                            selected
+                                        {% endif %}
+                                    >
+                                        🔴 A
+                                    </option>
+
+
+                                    <option
+                                        value="T"
+                                        {% if inscripcion.estado_actual == "T" %}
+                                            selected
+                                        {% endif %}
+                                    >
+                                        🟠 T
+                                    </option>
+
+
+                                    <option
+                                        value="J"
+                                        {% if inscripcion.estado_actual == "J" %}
+                                            selected
+                                        {% endif %}
+                                    >
+                                        🟣 J
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                        </div>
+
+                        {% endfor %}
+
+
+                    </div>
+
+
+                    <!-- ==========================================
+                         GUARDAR
+                         ========================================== -->
+
+                    <div class="guardar-container text-center mt-4">
+
+                        <button
+                            type="submit"
+                            class="btn btn-success btn-lg boton-guardar"
+                        >
+
+                            <i class="bi bi-check-circle-fill me-2"></i>
+
+                            Guardar asistencia
+
+                        </button>
+
+                    </div>
+
+
+                    {% else %}
+
+
+                    <!-- SIN ALUMNOS -->
+
+                    <div class="alert alert-warning text-center">
+
+                        <i class="bi bi-exclamation-triangle me-2"></i>
+
+                        No hay alumnos inscriptos
+                        en esta materia.
+
+                    </div>
+
+
+                    {% endif %}
+
+
+                </form>
+
+            </div>
+
+            {% endif %}
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ==========================================
+     JAVASCRIPT
+     ========================================== -->
+
+<script>
+
+    const form = document.getElementById("formAsistencia");
+
+    const ciclo = document.getElementById("ciclo");
+    const carrera = document.getElementById("carrera");
+    const anio = document.getElementById("anio");
+    const materia = document.getElementById("materia");
+
+
+    /* ==========================================
+       CICLO
+       ========================================== */
+
+    ciclo.addEventListener("change", function() {
+
+        carrera.selectedIndex = 0;
+        anio.selectedIndex = 0;
+        materia.selectedIndex = 0;
+
+        form.submit();
+
+    });
+
+
+    /* ==========================================
+       CARRERA
+       ========================================== */
+
+    carrera.addEventListener("change", function() {
+
+        anio.selectedIndex = 0;
+        materia.selectedIndex = 0;
+
+        form.submit();
+
+    });
+
+
+    /* ==========================================
+       AÑO
+       ========================================== */
+
+    anio.addEventListener("change", function() {
+
+        materia.selectedIndex = 0;
+
+        form.submit();
+
+    });
+
+
+    /* ==========================================
+       MATERIA
+       ========================================== */
+
+    materia.addEventListener("change", function() {
+
+        form.submit();
+
+    });
+
+
+    /* ==========================================
+       TODOS PRESENTES
+       ========================================== */
+
+    const botonTodosPresentes =
+        document.getElementById("todosPresentes");
+
+
+    if (botonTodosPresentes) {
+
+        botonTodosPresentes.addEventListener(
+            "click",
+            function() {
+
+                const estados =
+                    document.querySelectorAll(
+                        'select[name^="estado_"]'
+                    );
+
+
+                estados.forEach(function(select) {
+
+                    select.value = "P";
+
+                });
+
+            }
+        );
+
+    }
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,240 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>
+    Sistema de Asistencia | ISFDyT N.º 26
+</title>
+
+<!-- Bootstrap -->
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+>
+
+<!-- Bootstrap Icons -->
+<link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+>
+
+<!-- CSS propio -->
+<link
+    rel="stylesheet"
+    href="{% static 'css/estilos.css' %}"
+>
+
+</head>
+
+<body>
+
+<!-- ==================================================
+     BARRA SUPERIOR
+================================================== -->
+
+<header class="barra-superior">
+
+    <div class="encabezado-institucional">
+
+        <!-- BOTÓN MENÚ HAMBURGUESA -->
+
+        <button
+            class="boton-menu-hamburguesa"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#menuMovil"
+            aria-controls="menuMovil"
+            aria-label="Abrir menú"
+        >
+            <i class="bi bi-list"></i>
+        </button>
+
+
+        <!-- ESCUDO -->
+
+        <img
+            src="{% static 'img/escudo.png' %}"
+            alt="Escudo ISFDyT Nº 26"
+            class="logo-escudo"
+        >
+
+
+        <!-- TÍTULO -->
+
+        <div class="datos-institucion">
+
+            <h1 class="titulo-sistema">
+                Sistema de Asistencia
+            </h1>
+
+            <p class="subtitulo-sistema">
+                ISFDyT N.º 26 · Dolores
+            </p>
+
+        </div>
+
+    </div>
+
+</header>
+
+<!-- ==================================================
+     ESTRUCTURA PRINCIPAL
+================================================== -->
+
+<div class="contenedor-principal">
+
+
+<!-- ==================================================
+     CONTENIDO
+================================================== -->
+
+<main class="contenido-principal">
+
+    {% block contenido %}
+    {% endblock %}
+
+</main>
+
+</div>
+
+<!-- ==================================================
+     MENÚ MÓVIL
+================================================== -->
+
+<div
+    class="offcanvas offcanvas-start"
+    tabindex="-1"
+    id="menuMovil"
+    aria-labelledby="menuMovilLabel"
+>
+
+<div class="offcanvas-header">
+
+    <div class="menu-movil-titulo">
+
+        <img
+            src="{% static 'img/escudo.png' %}"
+            alt="Escudo ISFDyT Nº 26"
+        >
+
+        <div>
+
+            <strong id="menuMovilLabel">
+                Sistema de Asistencia
+            </strong>
+
+            <small>
+                ISFDyT N.º 26 · Dolores
+            </small>
+
+        </div>
+
+    </div>
+
+
+    <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="offcanvas"
+        aria-label="Cerrar"
+    ></button>
+
+</div>
+
+
+
+<div class="offcanvas-body">
+
+    <nav class="menu-navegacion">
+
+    <a href="{% url 'inicio' %}" class="enlace-menu">
+        <i class="bi bi-house-door"></i>
+        <span>Inicio</span>
+    </a>
+
+    <a href="{% url 'lista_ciclos' %}" class="enlace-menu">
+        <i class="bi bi-calendar-range"></i>
+        <span>Ciclo lectivo</span>
+    </a>
+
+    <a href="{% url 'lista_carreras' %}" class="enlace-menu">
+        <i class="bi bi-mortarboard"></i>
+        <span>Carreras</span>
+    </a>
+
+    <a href="{% url 'lista_alumnos' %}" class="enlace-menu">
+        <i class="bi bi-people"></i>
+        <span>Alumnos</span>
+    </a>
+
+    <a href="{% url 'seleccionar_asistencia' %}" class="enlace-menu">
+        <i class="bi bi-check2-square"></i>
+        <span>Asistencia</span>
+    </a>
+
+    <a href="{% url 'reporte_asistencia' %}" class="enlace-menu">
+        <i class="bi bi-bar-chart"></i>
+        <span>Registro</span>
+    </a>
+
+    <a href="{% url 'buscar_alumno_asistencia' %}" class="enlace-menu">
+         <i class="bi bi-search"></i>
+    <i class="bi bi-person-search"></i>
+
+    <span>
+        Buscador
+    </span>
+
+    </a>
+</nav>
+
+</div>
+
+</div>
+
+<!-- ==================================================
+     FOOTER
+================================================== -->
+
+<footer class="footer-sistema">
+
+<span>
+    Sistema de Asistencia
+</span>
+
+<span class="separador-footer">
+    •
+</span>
+
+<span>
+    ISFDyT Nº 26
+</span>
+
+<span class="separador-footer">
+    •
+</span>
+
+<span>
+    2026
+</span>
+
+</footer>
+
+<!-- Bootstrap JS -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js">
+</script>
+
+</body>
+
+</html>

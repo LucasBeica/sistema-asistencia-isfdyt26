@@ -1,0 +1,507 @@
+{% extends 'asistencia/base.html' %}
+
+{% block contenido %}
+
+<div class="container py-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2>
+                <i class="bi bi-bar-chart"></i>
+                Registro de asistencia
+            </h2>
+            <p class="text-muted mb-0">
+                Consulta de asistencia por materia
+            </p>
+        </div>
+    </div>
+
+
+    <!-- ========================================= -->
+    <!-- FILTROS -->
+    <!-- ========================================= -->
+
+    <div class="card shadow-sm mb-4">
+
+        <div class="card-body">
+
+            <form method="get">
+
+                <div class="row g-3">
+
+                    <!-- CICLO -->
+
+                    <div class="col-md-3">
+
+                        <label class="form-label">
+                            Ciclo lectivo
+                        </label>
+
+                        <select
+                            name="ciclo"
+                            class="form-select"
+                            onchange="this.form.submit()"
+                        >
+
+                            <option value="">
+                                Seleccionar ciclo
+                            </option>
+
+                            {% for ciclo in ciclos %}
+
+                                <option
+                                    value="{{ ciclo.id }}"
+                                    {% if ciclo_id == ciclo.id|stringformat:"s" %}
+                                        selected
+                                    {% endif %}
+                                >
+                                    {{ ciclo.nombre }}
+                                </option>
+
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- CARRERA -->
+
+                    <div class="col-md-3">
+
+                        <label class="form-label">
+                            Carrera
+                        </label>
+
+                        <select
+                            name="carrera"
+                            class="form-select"
+                            onchange="this.form.submit()"
+                            {% if not ciclo_id %}disabled{% endif %}
+                        >
+
+                            <option value="">
+                                Seleccionar carrera
+                            </option>
+
+                            {% for carrera in carreras %}
+
+                                <option
+                                    value="{{ carrera.id }}"
+                                    {% if carrera_id == carrera.id|stringformat:"s" %}
+                                        selected
+                                    {% endif %}
+                                >
+                                    {{ carrera.nombre }}
+                                </option>
+
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- AÑO -->
+
+                    <div class="col-md-3">
+
+                        <label class="form-label">
+                            Año
+                        </label>
+
+                        <select
+                            name="anio"
+                            class="form-select"
+                            onchange="this.form.submit()"
+                            {% if not carrera_id %}disabled{% endif %}
+                        >
+
+                            <option value="">
+                                Seleccionar año
+                            </option>
+
+                            {% for anio in anios %}
+
+                                <option
+                                    value="{{ anio.id }}"
+                                    {% if anio_id == anio.id|stringformat:"s" %}
+                                        selected
+                                    {% endif %}
+                                >
+                                    {{ anio.nombre }}
+                                </option>
+
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- MATERIA -->
+
+                    <div class="col-md-3">
+
+                        <label class="form-label">
+                            Materia
+                        </label>
+
+                        <select
+                            name="materia"
+                            class="form-select"
+                            onchange="this.form.submit()"
+                            {% if not anio_id %}disabled{% endif %}
+                        >
+
+                            <option value="">
+                                Seleccionar materia
+                            </option>
+
+                            {% for materia in materias %}
+
+                                <option
+                                    value="{{ materia.id }}"
+                                    {% if materia_id == materia.id|stringformat:"s" %}
+                                        selected
+                                    {% endif %}
+                                >
+                                    {{ materia.nombre }}
+                                </option>
+
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- ========================================= -->
+    <!-- INFORMACIÓN DE LA MATERIA -->
+    <!-- ========================================= -->
+
+    {% if materia_seleccionada %}
+
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-body">
+
+                <h4 class="mb-3">
+                    {{ materia_seleccionada.nombre }}
+                </h4>
+
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <strong>Carrera:</strong><br>
+                        {{ materia_seleccionada.anio.carrera.nombre }}
+                    </div>
+
+                    <div class="col-md-4">
+                        <strong>Año:</strong><br>
+                        {{ materia_seleccionada.anio.nombre }}
+                    </div>
+
+                    <div class="col-md-4">
+                        <strong>Ciclo lectivo:</strong><br>
+                        {{ materia_seleccionada.anio.carrera.ciclo_lectivo.nombre }}
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ========================================= -->
+        <!-- TABLA DE ALUMNOS -->
+        <!-- ========================================= -->
+
+        <div class="card shadow-sm">
+
+            <div class="card-header">
+
+                <strong>
+                    <i class="bi bi-people"></i>
+                    Asistencia de alumnos
+                </strong>
+
+            </div>
+
+            <div class="card-body p-0">
+
+                {% if alumnos_reporte %}
+
+                    <div class="table-responsive">
+
+                        <table class="table table-hover align-middle mb-0">
+
+                            <thead class="table-light">
+
+                                <tr>
+
+                                    <th>Alumno</th>
+
+                                    <th class="text-center">
+                                        P
+                                    </th>
+
+                                    <th class="text-center">
+                                        A
+                                    </th>
+
+                                    <th class="text-center">
+                                        T
+                                    </th>
+
+                                    <th class="text-center">
+                                        J
+                                    </th>
+
+                                    <th class="text-center">
+                                        Total
+                                    </th>
+
+                                    <th class="text-center">
+                                        %
+                                    </th>
+
+                                    <th></th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody>
+
+                                {% for alumno in alumnos_reporte %}
+
+                                    <tr>
+
+                                        <td>
+
+                                            <strong>
+                                                {{ alumno.inscripcion.alumno.apellido }},
+                                                {{ alumno.inscripcion.alumno.nombre }}
+                                            </strong>
+
+                                        </td>
+
+
+                                        <td class="text-center">
+                                            {{ alumno.presentes }}
+                                        </td>
+
+
+                                        <td class="text-center">
+                                            {{ alumno.ausentes }}
+                                        </td>
+
+
+                                        <td class="text-center">
+                                            {{ alumno.tardes }}
+                                        </td>
+
+
+                                        <td class="text-center">
+                                            {{ alumno.justificadas }}
+                                        </td>
+
+
+                                        <td class="text-center">
+                                            {{ alumno.total }}
+                                        </td>
+
+
+                                        <td class="text-center">
+
+                                            <strong>
+                                                {{ alumno.porcentaje }}%
+                                            </strong>
+
+                                        </td>
+
+
+                                        <td class="text-center">
+
+                                            <button
+                                                class="btn btn-sm btn-outline-primary"
+                                                type="button"
+                                                data-bs-toggle="collapse"
+                                                data-bs-target="#alumno{{ alumno.inscripcion.id }}"
+                                            >
+
+                                                <i class="bi bi-calendar3"></i>
+                                                Ver días
+
+                                            </button>
+
+                                        </td>
+
+                                    </tr>
+
+
+                                    <!-- ================================= -->
+                                    <!-- DETALLE DE FECHAS -->
+                                    <!-- ================================= -->
+
+                                    <tr
+                                        class="collapse"
+                                        id="alumno{{ alumno.inscripcion.id }}"
+                                    >
+
+                                        <td colspan="8">
+
+                                            <div class="p-3 bg-light rounded">
+
+                                                <h6 class="mb-3">
+
+                                                    Asistencia de
+                                                    {{ alumno.inscripcion.alumno.apellido }},
+                                                    {{ alumno.inscripcion.alumno.nombre }}
+
+                                                </h6>
+
+
+                                                {% if alumno.asistencias %}
+
+                                                    <div class="table-responsive">
+
+                                                        <table class="table table-sm table-bordered mb-0">
+
+                                                            <thead>
+
+                                                                <tr>
+
+                                                                    <th>
+                                                                        Fecha
+                                                                    </th>
+
+                                                                    <th>
+                                                                        Estado
+                                                                    </th>
+
+                                                                </tr>
+
+                                                            </thead>
+
+
+                                                            <tbody>
+
+                                                                {% for asistencia in alumno.asistencias %}
+
+                                                                    <tr>
+
+                                                                        <td>
+                                                                            {{ asistencia.fecha|date:"d/m/Y" }}
+                                                                        </td>
+
+
+                                                                        <td>
+
+                                                                            {% if asistencia.estado == 'P' %}
+
+                                                                                <span class="badge bg-success">
+                                                                                    Presente
+                                                                                </span>
+
+                                                                            {% elif asistencia.estado == 'A' %}
+
+                                                                                <span class="badge bg-danger">
+                                                                                    Ausente
+                                                                                </span>
+
+                                                                            {% elif asistencia.estado == 'T' %}
+
+                                                                                <span class="badge bg-warning text-dark">
+                                                                                    Tarde
+                                                                                </span>
+
+                                                                            {% elif asistencia.estado == 'J' %}
+
+                                                                                <span class="badge bg-info text-dark">
+                                                                                    Justificada
+                                                                                </span>
+
+                                                                            {% endif %}
+
+                                                                        </td>
+
+                                                                    </tr>
+
+                                                                {% endfor %}
+
+                                                            </tbody>
+
+                                                        </table>
+
+                                                    </div>
+
+                                                {% else %}
+
+                                                    <p class="text-muted mb-0">
+                                                        Este alumno todavía no tiene
+                                                        asistencias registradas.
+                                                    </p>
+
+                                                {% endif %}
+
+                                            </div>
+
+                                        </td>
+
+                                    </tr>
+
+                                {% endfor %}
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                {% else %}
+
+                    <div class="p-4 text-center">
+
+                        <i class="bi bi-info-circle fs-2 text-muted"></i>
+
+                        <p class="mt-2 mb-0">
+                            No hay alumnos inscriptos o todavía no hay
+                            asistencias registradas.
+                        </p>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    {% else %}
+
+        <div class="alert alert-info">
+
+            <i class="bi bi-info-circle"></i>
+
+            Seleccioná ciclo, carrera, año y materia
+            para generar el reporte.
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

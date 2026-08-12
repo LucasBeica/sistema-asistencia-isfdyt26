@@ -1,0 +1,440 @@
+{% extends 'asistencia/base.html' %}
+
+{% block contenido %}
+
+<div class="container py-4">
+
+    <!-- TÍTULO -->
+
+    <div class="text-center mb-4">
+
+        <h1 class="fw-bold">
+            <i class="bi bi-search"></i>
+            Buscador de alumnos
+        </h1>
+
+        <p class="text-muted">
+            Buscá un alumno por nombre, apellido o DNI.
+        </p>
+
+    </div>
+
+
+    <!-- BUSCADOR -->
+
+    <div class="card shadow-sm border-0 mb-4">
+
+        <div class="card-body p-4">
+
+            <form method="GET">
+
+                <div class="row g-3 align-items-end">
+
+                    <div class="col-12 col-md-9">
+
+                        <label class="form-label fw-semibold">
+                            Alumno
+                        </label>
+
+                        <input
+                            type="text"
+                            name="buscar"
+                            value="{{ buscar }}"
+                            class="form-control"
+                            placeholder="Nombre, apellido o DNI"
+                        >
+
+                    </div>
+
+                    <div class="col-12 col-md-3">
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary w-100"
+                        >
+                            <i class="bi bi-search"></i>
+                            Buscar
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- RESULTADOS DE BÚSQUEDA -->
+
+    {% if buscar %}
+
+        {% if alumnos %}
+
+            <div class="card shadow-sm border-0 mb-4">
+
+                <div class="card-body">
+
+                    <h4 class="mb-3">
+                        <i class="bi bi-people"></i>
+                        Alumnos encontrados
+                    </h4>
+
+
+                    <div class="list-group">
+
+                        {% for alumno in alumnos %}
+
+                            <a
+                                href="?buscar={{ buscar }}&alumno={{ alumno.id }}"
+                                class="list-group-item list-group-item-action"
+                            >
+
+                                <div class="d-flex justify-content-between align-items-center">
+
+                                    <div>
+
+                                        <strong>
+                                            {{ alumno.apellido }}, {{ alumno.nombre }}
+                                        </strong>
+
+                                        <br>
+
+                                        <small class="text-muted">
+                                            DNI: {{ alumno.dni }}
+                                        </small>
+
+                                    </div>
+
+                                    <i class="bi bi-chevron-right"></i>
+
+                                </div>
+
+                            </a>
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        {% else %}
+
+            <div class="alert alert-warning">
+
+                <i class="bi bi-exclamation-circle"></i>
+
+                No se encontraron alumnos con:
+                <strong>{{ buscar }}</strong>
+
+            </div>
+
+        {% endif %}
+
+    {% endif %}
+
+
+    <!-- ALUMNO SELECCIONADO -->
+
+    {% if alumno_seleccionado %}
+
+        <div class="card shadow-sm border-0 mb-4">
+
+            <div class="card-body">
+
+                <div class="mb-4">
+
+                    <h2 class="fw-bold mb-1">
+
+                        {{ alumno_seleccionado.apellido }},
+                        {{ alumno_seleccionado.nombre }}
+
+                    </h2>
+
+                    <p class="text-muted mb-0">
+
+                        <i class="bi bi-person-vcard"></i>
+
+                        DNI: {{ alumno_seleccionado.dni }}
+
+                    </p>
+
+                </div>
+
+
+                <hr>
+
+
+                <h4 class="mb-3">
+
+                    <i class="bi bi-journal-text"></i>
+
+                    Materias y asistencia
+
+                </h4>
+
+
+                {% if datos_materias %}
+
+                    <div class="row g-4">
+
+                        {% for dato in datos_materias %}
+
+                            <div class="col-12 col-md-6">
+
+                                <div class="card h-100 border shadow-sm">
+
+                                    <div class="card-body">
+
+                                        <h5 class="fw-bold">
+
+                                            {{ dato.materia.nombre }}
+
+                                        </h5>
+
+                                        <p class="text-muted mb-3">
+
+                                            {{ dato.carrera.nombre }}
+                                            <br>
+
+                                            {{ dato.anio.nombre }}
+
+                                            {% if dato.ciclo %}
+                                                <br>
+                                                Ciclo lectivo:
+                                                {{ dato.ciclo.nombre }}
+                                            {% endif %}
+
+                                        </p>
+
+
+                                        <!-- PORCENTAJE -->
+
+                                        <div class="mb-3">
+
+                                            <div class="d-flex justify-content-between">
+
+                                                <span class="fw-semibold">
+                                                    Asistencia
+                                                </span>
+
+                                                <strong>
+                                                    {{ dato.porcentaje }}%
+                                                </strong>
+
+                                            </div>
+
+                                            <div
+                                                class="progress"
+                                                style="height: 10px;"
+                                            >
+
+                                                <div
+                                                    class="progress-bar"
+                                                    role="progressbar"
+                                                    data-porcentaje="{{ dato.porcentaje }}";"
+                                                ></div>
+
+                                            </div>
+
+                                        </div>
+
+
+                                        <!-- ESTADÍSTICAS -->
+
+                                        <div class="row text-center g-2">
+
+                                            <div class="col-6 col-lg-3">
+
+                                                <div class="p-2 bg-light rounded">
+
+                                                    <strong>
+                                                        {{ dato.presentes }}
+                                                    </strong>
+
+                                                    <small class="d-block text-muted">
+                                                        Presentes
+                                                    </small>
+
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="col-6 col-lg-3">
+
+                                                <div class="p-2 bg-light rounded">
+
+                                                    <strong>
+                                                        {{ dato.ausentes }}
+                                                    </strong>
+
+                                                    <small class="d-block text-muted">
+                                                        Ausentes
+                                                    </small>
+
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="col-6 col-lg-3">
+
+                                                <div class="p-2 bg-light rounded">
+
+                                                    <strong>
+                                                        {{ dato.tardes }}
+                                                    </strong>
+
+                                                    <small class="d-block text-muted">
+                                                        Tardes
+                                                    </small>
+
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="col-6 col-lg-3">
+
+                                                <div class="p-2 bg-light rounded">
+
+                                                    <strong>
+                                                        {{ dato.justificadas }}
+                                                    </strong>
+
+                                                    <small class="d-block text-muted">
+                                                        Justificadas
+                                                    </small>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+
+                                        <!-- DÍAS -->
+
+                                        {% if dato.asistencias %}
+
+                                            <hr>
+
+                                            <h6 class="fw-bold">
+
+                                                <i class="bi bi-calendar3"></i>
+
+                                                Días registrados
+
+                                            </h6>
+
+                                            <div class="table-responsive">
+
+                                                <table class="table table-sm align-middle">
+
+                                                    <thead>
+
+                                                        <tr>
+
+                                                            <th>
+                                                                Fecha
+                                                            </th>
+
+                                                            <th>
+                                                                Estado
+                                                            </th>
+
+                                                        </tr>
+
+                                                    </thead>
+
+                                                    <tbody>
+
+                                                        {% for asistencia in dato.asistencias %}
+
+                                                            <tr>
+
+                                                                <td>
+                                                                    {{ asistencia.fecha|date:"d/m/Y" }}
+                                                                </td>
+
+                                                                <td>
+
+                                                                    {% if asistencia.estado == 'P' %}
+                                                                        Presente
+
+                                                                    {% elif asistencia.estado == 'A' %}
+                                                                        Ausente
+
+                                                                    {% elif asistencia.estado == 'T' %}
+                                                                        Tarde
+
+                                                                    {% elif asistencia.estado == 'J' %}
+                                                                        Justificada
+
+                                                                    {% endif %}
+
+                                                                </td>
+
+                                                            </tr>
+
+                                                        {% endfor %}
+
+                                                    </tbody>
+
+                                                </table>
+
+                                            </div>
+
+                                        {% else %}
+
+                                            <p class="text-muted mt-3 mb-0">
+
+                                                No hay asistencias registradas
+                                                para esta materia.
+
+                                            </p>
+
+                                        {% endif %}
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                {% else %}
+
+                    <div class="alert alert-info">
+
+                        <i class="bi bi-info-circle"></i>
+
+                        Este alumno todavía no tiene materias
+                        registradas.
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    {% endif %}
+
+</div>
+<script>
+document.querySelectorAll('.barra-asistencia').forEach(function(barra) {
+    barra.style.width = barra.dataset.porcentaje + '%';
+});
+</script>
+
+{% endblock %}

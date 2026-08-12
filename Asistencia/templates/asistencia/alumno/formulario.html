@@ -1,0 +1,69 @@
+{% extends 'asistencia/base.html' %}
+
+{% block contenido %}
+
+
+<div class="row justify-content-center">
+
+
+<div class="col-md-6">
+
+
+<div class="card shadow-sm">
+
+
+<div class="card-body p-4">
+
+
+<h2>
+Nuevo alumno
+</h2>
+
+
+<p class="text-muted">
+
+Agregar alumno a {{ anio.nombre }}
+
+</p>
+
+
+<hr>
+
+
+<form method="POST">
+
+{% csrf_token %}
+
+
+{{ formulario.as_p }}
+
+
+<button type="submit"
+        class="btn btn-primary">
+
+Guardar
+
+</button>
+
+
+<a href="{% url 'lista_alumnos' %}"
+   class="btn btn-outline-secondary">
+
+Cancelar
+
+</a>
+
+
+</form>
+
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+{% endblock %}

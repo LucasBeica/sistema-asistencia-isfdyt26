@@ -1,0 +1,201 @@
+{% extends 'asistencia/base.html' %}
+
+{% block contenido %}
+
+<div class="bienvenida">
+
+    <div class="bienvenida-texto">
+
+        <h1>
+            Sistema de Asistencia
+        </h1>
+
+        <h2>
+            ISFDyT N.º 26 – Dolores
+        </h2>
+
+        <p>
+            Gestioná carreras, años, materias, alumnos y asistencias
+            desde un solo lugar.
+        </p>
+
+    </div>
+
+    <div class="bienvenida-icono">
+
+        <i class="bi bi-clipboard2-check-fill"></i>
+
+    </div>
+
+</div>
+
+
+<div class="row g-4 mt-1">
+
+
+    <!-- CICLO LECTIVO -->
+
+    <div class="col-12 col-md-6 col-xl-4">
+
+        <a href="{% url 'lista_ciclos' %}"
+           class="tarjeta-acceso">
+
+            <div class="icono-tarjeta">
+
+                <i class="bi bi-calendar-range"></i>
+
+            </div>
+
+            <div>
+
+                <h3>Ciclo lectivo</h3>
+
+                <p>
+                    Administrar los ciclos lectivos.
+                </p>
+
+            </div>
+
+        </a>
+
+    </div>
+
+
+    <!-- CARRERAS -->
+
+    <div class="col-12 col-md-6 col-xl-4">
+
+        <a href="{% url 'lista_carreras' %}"
+           class="tarjeta-acceso">
+
+            <div class="icono-tarjeta">
+
+                <i class="bi bi-mortarboard"></i>
+
+            </div>
+
+            <div>
+
+                <h3>Carreras</h3>
+
+                <p>
+                    Crear y organizar las carreras.
+                </p>
+
+            </div>
+
+        </a>
+
+    </div>
+
+
+    <!-- ALUMNOS -->
+
+    <div class="col-12 col-md-6 col-xl-4">
+
+        <a href="{% url 'lista_alumnos' %}"
+           class="tarjeta-acceso">
+
+            <div class="icono-tarjeta">
+
+                <i class="bi bi-people"></i>
+
+            </div>
+
+            <div>
+
+                <h3>Alumnos</h3>
+
+                <p>
+                    Registrar y administrar alumnos.
+                </p>
+
+            </div>
+
+        </a>
+
+    </div>
+
+
+    <!-- ASISTENCIA -->
+
+    <div class="col-12 col-md-6 col-xl-4">
+
+        <a href="{% url 'seleccionar_asistencia' %}"
+           class="tarjeta-acceso">
+
+            <div class="icono-tarjeta">
+
+                <i class="bi bi-check2-square"></i>
+
+            </div>
+
+            <div>
+
+                <h3>Asistencia</h3>
+
+                <p>
+                    Asistencia diaria.
+                </p>
+
+            </div>
+
+        </a>
+
+    </div>
+
+<!-- REPORTES -->
+
+<div class="col-12 col-md-6 col-xl-4">
+
+<a href="{% url 'reporte_asistencia' %}"
+   class="tarjeta-acceso">
+
+    <div class="icono-tarjeta">
+
+        <i class="bi bi-bar-chart"></i>
+
+    </div>
+
+    <div>
+
+        <h3>Registro</h3>
+
+        <p>
+            Consultar porcentaje de asistencia.
+        </p>
+
+    </div>
+
+</a>
+
+
+</div>
+ <!-- BUSCADOR DE ALUMNOS -->
+
+    <div class="col-12 col-md-6 col-xl-4">
+
+        <a href="{% url 'buscar_alumno_asistencia' %}"
+           class="tarjeta-acceso">
+
+            <div class="icono-tarjeta">
+
+                <i class="bi bi-search"></i>
+
+            </div>
+
+            <div>
+
+                <h3>Buscador de alumnos</h3>
+
+                <p>
+                    Consultar las faltas de cada alumno.
+                </p>
+
+            </div>
+
+        </a>
+
+    </div>
+
+{% endblock %}
