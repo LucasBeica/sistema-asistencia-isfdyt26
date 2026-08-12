@@ -73,7 +73,7 @@
                                 <td class="text-end">
 
                                     <a href="{% url 'editar_ciclo' ciclo.id %}"
-                                       class="btn btn-outline-primary btn-sm">
+                                       class="btn btn-primary btn-sm">
 
                                         <i class="bi bi-pencil"></i>
 
@@ -83,7 +83,7 @@
 
 
                                     <a href="{% url 'eliminar_ciclo' ciclo.id %}"
-                                       class="btn btn-outline-danger btn-sm">
+                                       class="btn btn-danger btn-sm">
 
                                         <i class="bi bi-trash"></i>
 
@@ -133,5 +133,16 @@
     </div>
 
 </div>
+<!-- VOLVER -->
+<div class="mt-4">
 
+    <a href="{% url 'inicio' %}"
+       class="btn btn-primary">
+
+        <i class="bi bi-arrow-left me-2"></i>
+        Volver al inicio
+
+    </a>
+
+</div>
 {% endblock %}

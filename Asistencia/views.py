@@ -973,79 +973,88 @@ def reporte_asistencia(request):
 
     materia_seleccionada = None
 
-    if materia_id and ciclo_id:
+    if materia_id and ciclo_id and carrera_id and anio_id:
 
-        materia_seleccionada = get_object_or_404(
-            Materia,
+        # Buscamos la materia verificando toda la relación:
+        # Ciclo → Carrera → Año → Materia
+
+        materia_seleccionada = Materia.objects.filter(
             id=materia_id,
+            anio_id=anio_id,
             anio__carrera_id=carrera_id,
             anio__carrera__ciclo_lectivo_id=ciclo_id
-        )
+        ).first()
 
-        inscripciones = Inscripcion.objects.filter(
-            materia=materia_seleccionada,
-            ciclo_lectivo_id=ciclo_id
-        ).select_related(
-            'alumno'
-        ).order_by(
-            'alumno__apellido',
-            'alumno__nombre'
-        )
+        # ==================================================
+        # SI LA MATERIA EXISTE
+        # ==================================================
 
-        for inscripcion in inscripciones:
+        if materia_seleccionada:
 
-            asistencias = Asistencia.objects.filter(
-                inscripcion=inscripcion
-            ).order_by('fecha')
+            inscripciones = Inscripcion.objects.filter(
+                materia=materia_seleccionada,
+                ciclo_lectivo_id=ciclo_id
+            ).select_related(
+                'alumno'
+            ).order_by(
+                'alumno__apellido',
+                'alumno__nombre'
+            )
 
-            presentes = asistencias.filter(
-                estado='P'
-            ).count()
+            for inscripcion in inscripciones:
 
-            ausentes = asistencias.filter(
-                estado='A'
-            ).count()
+                asistencias = Asistencia.objects.filter(
+                    inscripcion=inscripcion
+                ).order_by('fecha')
 
-            tardes = asistencias.filter(
-                estado='T'
-            ).count()
+                presentes = asistencias.filter(
+                    estado='P'
+                ).count()
 
-            justificadas = asistencias.filter(
-                estado='J'
-            ).count()
+                ausentes = asistencias.filter(
+                    estado='A'
+                ).count()
 
-            total = asistencias.count()
+                tardes = asistencias.filter(
+                    estado='T'
+                ).count()
 
-            if total > 0:
+                justificadas = asistencias.filter(
+                    estado='J'
+                ).count()
 
-                porcentaje = round(
-                    (presentes + tardes) / total * 100,
-                    1
-                )
+                total = asistencias.count()
 
-            else:
+                if total > 0:
 
-                porcentaje = 0
+                    porcentaje = round(
+                        (presentes + tardes) / total * 100,
+                        1
+                    )
 
-            alumnos_reporte.append({
+                else:
 
-                'inscripcion': inscripcion,
+                    porcentaje = 0
 
-                'asistencias': asistencias,
+                alumnos_reporte.append({
 
-                'presentes': presentes,
+                    'inscripcion': inscripcion,
 
-                'ausentes': ausentes,
+                    'asistencias': asistencias,
 
-                'tardes': tardes,
+                    'presentes': presentes,
 
-                'justificadas': justificadas,
+                    'ausentes': ausentes,
 
-                'total': total,
+                    'tardes': tardes,
 
-                'porcentaje': porcentaje,
+                    'justificadas': justificadas,
 
-            })
+                    'total': total,
+
+                    'porcentaje': porcentaje,
+
+                })
 
     # ==================================================
     # MOSTRAR REPORTE
